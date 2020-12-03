@@ -10,14 +10,20 @@ class Storage extends Component{
     constructor(props) {
         super(props);
         this.state = {storage:[],
-                      keys: Object.keys(localStorage).length
+                    //  keys: Object.keys(localStorage).length
         };
         this.RemoveFromLocal = this.RemoveFromLocal.bind(this);
       }
 
       RemoveFromLocal(e){
         localStorage.removeItem(e.target.value);
-        window.location.reload(false);
+        let values = [],
+          keys = Object.keys(localStorage),
+          i = keys.length;
+          while ( i-- ) {
+          values.push(JSON.parse(localStorage.getItem(keys[i])));
+          this.setState({storage: values})
+          }
       }
 
       componentDidMount(){
@@ -30,7 +36,7 @@ class Storage extends Component{
         }
       }
 
-      componentDidUpdate(prevProps, prevState) {
+   /*   componentDidUpdate(prevProps, prevState) {
         if(prevState.keys != this.state.keys ){
           let values = [],
           keys = Object.keys(localStorage),
@@ -40,7 +46,7 @@ class Storage extends Component{
           this.setState({storage: values})
           }
         }
-      }
+      }*/
       
     render(){
         let tableBody = this.state.storage.map((item, index)=>
@@ -66,6 +72,7 @@ class Storage extends Component{
                         <th>A</th>
                         <th>NS</th>
                         <th>CNAME</th>
+                        <th>Remove</th>
                         </tr>
                     </thead>
                     <tbody>

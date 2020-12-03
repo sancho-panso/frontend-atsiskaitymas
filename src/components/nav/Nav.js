@@ -12,15 +12,22 @@ import  {NavLink} from 'react-router-dom';
 class Nav extends Component{
     constructor(props) {
         super(props);
-        this.state = {search:''};
+        this.state = {search:" "};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.clearOnBlur = this.clearOnBlur.bind(this);
       }
 
       handleChange(event) {this.setState({search: event.target.value});  }
       handleSubmit(event) {
-        this.props.onSearchInput(this.state.search)  
+        let searchField = this.state.search;
+        this.props.onSearchInput(searchField);
+        this.setState({search:" "});  
         event.preventDefault();
+      }
+
+      clearOnBlur(){
+        this.setState({search:" "});   
       }
 
     render(){

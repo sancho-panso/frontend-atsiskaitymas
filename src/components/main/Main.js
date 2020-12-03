@@ -24,6 +24,7 @@ class Main extends Component{
       
 
         componentDidMount() {
+            console.log(this.props.search);
         if(this.props.search != " "){    
         let path = this.props.search
         fetch("https://api.domainsdb.info/v1/domains/search?domain=" + path)
@@ -45,6 +46,28 @@ class Main extends Component{
             )
         }
     }
+        /*componentDidUpdate(prevProps, prevState) {
+        if(prevProps.search != this.props.search && this.props.search != " "){    
+        let path = this.props.search
+        fetch("https://api.domainsdb.info/v1/domains/search?domain=" + path)
+            .then(response => response.json())
+            .then(
+                data=>{
+                    if(data.domains != undefined){
+                        let res = data.domains.slice(0,1)
+                        res[0].create_date = CheckForNull(res[0].create_date);
+                        res[0].country = CheckForNull(res[0].country);
+                        res[0].CNAME = CheckForNull(res[0].CNAME);
+                        res[0].A = CheckForNull(res[0].A);
+                        res[0].NS = CheckForNull(res[0].NS);
+                        console.log();
+                        this.setState({domainData: res} )
+                    }
+                    this.setState({message: "No data found"})
+                }
+            )
+        }
+    }*/
 
    render() {
        console.log("Main" + this.props.search); 
